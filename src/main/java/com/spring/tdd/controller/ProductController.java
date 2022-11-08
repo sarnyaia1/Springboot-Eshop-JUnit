@@ -15,12 +15,12 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @GetMapping(value = "/products")
-    public List<Product> getAllProducts(){
-        return productService.getProducts();
+    @GetMapping(value = "/product")
+    public List<Product> fetchAllProducts(){
+        return productService.fetchAllProducts();
     }
 
-    @PostMapping(value = "/products")
+    @PostMapping(value = "/product")
     public ResponseEntity<String> addProduct(@RequestBody Product product){
         boolean result = productService.addProduct(product);
         if(result){
@@ -29,4 +29,5 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
 }

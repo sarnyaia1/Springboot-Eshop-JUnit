@@ -33,7 +33,7 @@ public class ProductService implements ProductRepository {
     }
 
     @Override
-    public List<Product> getProducts(){
+    public List<Product> fetchAllProducts(){
         return productList;
     }
 

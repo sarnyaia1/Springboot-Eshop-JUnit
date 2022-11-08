@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository {
 
-    List<Product> getProducts();
+    List<Product> fetchAllProducts();
 
     boolean addProduct(Product product);
 }
