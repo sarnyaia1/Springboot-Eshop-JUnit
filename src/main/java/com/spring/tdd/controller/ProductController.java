@@ -1,10 +1,10 @@
 package com.spring.tdd.controller;
 
-import com.spring.tdd.model.Notebook;
-import com.spring.tdd.model.Tv;
-import com.spring.tdd.repository.NotebookRepository;
-import com.spring.tdd.repository.TvRepository;
+import com.spring.tdd.model.Product;
+import com.spring.tdd.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,32 +13,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final TvRepository tvRepository;
-    private final NotebookRepository notebookRepository;
+    private final ProductRepository productRepository;
 
     @GetMapping(value = "/products")
-    public String getAllProducts(){
-        return "Some testing products!";
+    public List<Product> getAllProducts(){
+        return productRepository.getProducts();
     }
 
-    @GetMapping(value = "/tv")
-    public List<Tv> getAllTv(){
-        return tvRepository.getProducts();
+    @PostMapping(value = "/products")
+    public ResponseEntity<String> addProduct(@RequestBody Product product){
+        boolean result = productRepository.addProduct(product);
+        if(result){
+            return ResponseEntity.ok("Product CREATED successfully!!");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
-
-    @PostMapping(value = "/tv")
-    public void addTv(@RequestBody Tv tv){
-        tvRepository.addProduct(tv);
-    }
-
-    @GetMapping(value = "/notebook")
-    public List<Notebook> getAllNotebook(){
-        return notebookRepository.getProducts();
-    }
-
-    @PostMapping(value = "/notebook")
-    public void addNotebook(@RequestBody Notebook notebook){
-        notebookRepository.addProduct(notebook);
-    }
-
 }
